@@ -1,0 +1,194 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffe3e3; /* Fondo rosa pastel */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    /* align-items: center;  -> ELIMINA ESTA LÍNEA */
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-top: 100px; /* -> AÑADE ESTO para dar espacio arriba al abrir */
+}
+
+.contenedor {
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.oculto {
+    display: none !important;
+}
+
+h1 {
+    color: #d63031;
+    font-size: 2.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.instruccion {
+    color: #ff4757;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+/* --- BOTONES --- */
+.botones {
+    margin-top: 30px;
+    position: relative;
+    height: 100px;
+}
+
+.botones button {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#btn-si {
+    background-color: #2ed573;
+    color: white;
+}
+
+#btn-si:hover {
+    transform: scale(1.1);
+    background-color: #26af5f;
+}
+
+#btn-no {
+    background-color: #ff4757;
+    color: white;
+    z-index: 999;
+}
+
+/* --- DECORACIÓN --- */
+.decoracion-flores {
+    font-size: 35px;
+    margin-bottom: 10px;
+    animation: flotar 3s ease-in-out infinite;
+}
+
+/* --- EL SOBRE Y LA CARTA --- */
+.sobre-contenedor {
+    width: 350px;
+    height: 250px;
+    background-color: #ff6b81;
+    position: relative;
+    border-radius: 0 0 15px 15px;
+    cursor: pointer;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    margin: 60px auto 0 auto;
+    transition: transform 0.5s ease-in-out; /* -> AÑADE ESTO para suavizar el movimiento general */
+}
+
+/* Frente del sobre (los pliegues simulados) */
+.sobre-contenedor::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 175px solid #ff4757;
+    border-right: 175px solid #ff4757;
+    border-top: 125px solid transparent;
+    border-bottom: 125px solid #ff4757;
+    border-radius: 0 0 15px 15px;
+    z-index: 3;
+}
+
+/* Solapa superior que se abre */
+.solapa {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 175px solid transparent;
+    border-right: 175px solid transparent;
+    border-top: 130px solid #e03d4f;
+    transform-origin: top;
+    transition: transform 0.4s ease-in-out;
+    z-index: 4;
+}
+
+/* Hoja interna donde va el mensaje */
+.carta {
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+    width: 320px;
+    height: 230px;
+    background: #fffdf9; /* Tono papel pergamino claro */
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: transform 0.5s ease-in-out, height 0.5s ease-in-out;
+    z-index: 2;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.carta h2 {
+    color: #ff4757;
+    font-size: 1.2rem;
+    margin-top: 0;
+}
+
+.carta p {
+    color: #4f4f4f;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+/* --- COMPORTAMIENTO ABIERTO --- */
+.sobre-contenedor.abierto .solapa {
+    transform: rotateX(180deg);
+    z-index: 1; /* Se esconde detrás de la carta */
+}
+
+/* NUEVA LÓGICA DE APERTURA: Mueve el sobre entero hacia abajo */
+.sobre-contenedor.abierto {
+    transform: translateY(220px); /* -> Mueve el sobre hacia abajo */
+}
+
+.sobre-contenedor.abierto .carta {
+    transform: translateY(-200px); /* -> Mantiene la carta arriba */
+    height: 450px; /* Se estira verticalmente */
+    z-index: 5; /* Pasa al frente de todo */
+    overflow-y: auto; /* Permite scroll vertical interno si hay mucho contenido */
+}
+
+/* --- GRID DE LAS 4 FOTOS --- */
+.fotos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+.foto-pareja {
+    width: 100%;
+    height: 120px;
+    object-fit: cover; /* Recorta la foto proporcionalmente para que no se deforme */
+    border-radius: 10px;
+    border: 3px solid white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Animación flotante de las flores */
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
